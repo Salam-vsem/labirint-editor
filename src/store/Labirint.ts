@@ -26,7 +26,6 @@ const loadKeys = (): number[] | undefined => {
 }
 
 export const saveLabirint = (labirint: Labirint) => {
-  console.log('save labirint', new Date())
   localStorage['labirint'] = JSON.stringify(labirint);
 };
 
@@ -66,8 +65,6 @@ export class LabirintStore {
 
   constructor() {
     this._labirint = loadLabirint();
-    console.log('this labirint length: ', this._labirint.length)
-    console.log( document.documentElement.clientWidth)
     this.cellSize = this.getCellSize();
     this.wallSize = this.getWallSize();
     this.selectedItemToChange = SelectedItemToChange.noneSelected;
@@ -100,7 +97,6 @@ export class LabirintStore {
 
   @action
   setWall(row: number, col: number, direction: Direction, info: PassInfo) {
-
     if(direction === Direction.left) {
       this._labirint[row][col].directions[direction] = info;
       this._labirint[row][col - 1].directions[Direction.right] = info;
@@ -142,7 +138,6 @@ export class LabirintStore {
 
   @action
   clearLabirint() {
-
     for(let row = 0; row < this.labirint.length; row++) {
       for(let col = 0; col < this.labirint[row].length; col++) {
         let cell = this.labirint[row][col];

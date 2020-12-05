@@ -4,7 +4,6 @@ const mazegeneration = require('maze-generation');
 
 export const createRandomLabirint = (rows: number, cols: number) => {
   const maze = mazegeneration(rows, cols, 35, 'DEPTHFIRST');
-  console.log(maze.toString());
   const cells = maze.cells;
   const array: Cell[][] = [];
 

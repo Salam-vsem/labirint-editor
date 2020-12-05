@@ -250,7 +250,6 @@ export const findUneditableDirections = (row: number, col: number, labirintLengt
 }
 export const clearDirections = (cell: Cell, exceptions?: Direction[]) => {
     if(exceptions) {
-        console.log(exceptions.join(' '));
         Object.keys(cell.directions).map(index => {
             const direction = Number(index) as Direction;
             const result = exceptions.find(exception => exception === direction);
@@ -260,7 +259,6 @@ export const clearDirections = (cell: Cell, exceptions?: Direction[]) => {
             else {
                 cell.directions[direction] = true;
             }
-            console.log(cell.directions[direction]);
         });
     }
     else {

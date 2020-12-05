@@ -108,7 +108,6 @@ const loadJson = (inputRef: React.RefObject<HTMLInputElement>): Promise<Labirint
       // alert('ошибка');
       return;
     }
-    console.log(file);
 
     const reader = new FileReader();
     reader.addEventListener('load', event => {

@@ -12,7 +12,6 @@ const findStartPosition = (labirint: readonly Cell[][]): Position| undefined => 
     const rowIndex = labirint.indexOf(row);
     if(cell) {
       const colIndex = labirint[rowIndex].indexOf(cell);
-      console.log('here')
       return {
         row: rowIndex,
         col: colIndex

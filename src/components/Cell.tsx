@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Rect, Group, Text, Image } from 'react-konva';
-import Wall from './Wall';
-import { Cell, Direction, SelectedItemToChange } from '@src/types';
+import { Rect, Group, Text } from 'react-konva';
+import { SelectedItemToChange } from '@src/types';
 import { useLabirintStore, saveLabirint } from '@src/store/Labirint';
 import { colors } from '@src/config/colors';
 import { observer } from 'mobx-react-lite';
 import { hasStart, hasFinish } from '@src/helper/helper';
 import startImg from '../images/icons/027-flower.png';
-import { keys } from 'mobx';
-import { isUndefined } from 'util';
 
 interface CellProps {
   x: number;
@@ -59,12 +56,10 @@ export const CellObject: React.FC<CellProps> = observer((props) => {
     }
     else if(
       store.selectedKey&&
-      // !cell.isStart &&
-      // !cell.isFinish &&
+      !cell.isStart &&
+      !cell.isFinish &&
       (cell.keys === undefined || cell.keys.length < 4)
     ){
-      // if(store.selectedKey) {
-      console.log('here')
       if(cell.keys) {
         if(cell.keys.every(key => key !== store.selectedKey)) {
           cell.keys.push(store.selectedKey);
@@ -78,7 +73,6 @@ export const CellObject: React.FC<CellProps> = observer((props) => {
         cell.keys = [];
         cell.keys.push(store.selectedKey);
       }
-      // }
     }
     saveLabirint(store.labirint as any);
   }

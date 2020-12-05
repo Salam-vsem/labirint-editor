@@ -52,6 +52,7 @@ export const CreateNewLabirint: React.FC = () => {
 
   const createNewLabirint = (rows: number, cols: number) => {
     store.labirint = createLabirint(rows, cols);
+    store.keys = []
     history.push(routes.editPage);
   }
 
