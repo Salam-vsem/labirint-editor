@@ -1,6 +1,6 @@
 export const colors = {
-  emptyWallColor: '#262626',
-  cellColor: '#262626',
+  emptyWallColor: '#212121',
+  cellColor: '#212121',
   wallColor: '#e631f9',
   startColor: 'yellow',
   startHoverColor: '#cccc3e',
@@ -9,6 +9,8 @@ export const colors = {
   cellHoverColor: '#313131',
   doorColor: '#4e1254',
   font: '#e2e2e2',
-  menuItemsBackground: '#e631f9',
+  rightMenuBg: '#262626',
+  keysListBg: '#323232',
+  bodyBg: '#212121',
 }
 

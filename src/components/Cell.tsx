@@ -12,15 +12,15 @@ interface CellProps {
   y: number;
   bg: string;
   row: number;
-  index: number;
+  col: number;
 }
 
 export const CellObject: React.FC<CellProps> = observer((props) => {
-  const {x, y, bg, row, index} = props;
+  const {x, y, bg, row, col} = props;
   const store = useLabirintStore();
   const labirint = store.labirint;
   const cellSize = store.cellSize;
-  const cell = labirint[row][index];
+  const cell = labirint[row][col];
 
   const [color, setColor] = useState(bg);
   const startImage = new window.Image(100,100);
@@ -44,15 +44,31 @@ export const CellObject: React.FC<CellProps> = observer((props) => {
   }
 
   const onClickFunc = () => {
-    if(store.selectedItemToChange === SelectedItemToChange.start && (!hasStart(labirint) || cell.isStart)) {
+    if(store.selectedItemToChange === SelectedItemToChange.start ) {
       cell.isFinish = false;
-      const isStart = cell.isStart;
-      isStart? cell.isStart = !isStart: cell.isStart = true;
+      cell.keys = [];
+      cell.isStart? cell.isStart = !cell.isStart: cell.isStart = true;
+      labirint.forEach((v, rowI) => v.forEach((v, colI) => {
+        if(row === rowI && col === colI) {
+          return
+        }
+        if(v.isStart) {
+          return labirint[rowI][colI].isStart = false
+        }
+      }))
     }
-    else if(store.selectedItemToChange === SelectedItemToChange.finish && (!hasFinish(labirint) || cell.isFinish)) {
+    else if(store.selectedItemToChange === SelectedItemToChange.finish) {
       cell.isStart = false;
-      const isFinish = cell.isFinish;
-      isFinish? cell.isFinish = !isFinish: cell.isFinish = true;
+      cell.keys = [];
+      cell.isFinish? cell.isFinish = !cell.isFinish: cell.isFinish = true;
+      labirint.forEach((v, rowI) => v.forEach((v, colI) => {
+        if(row === rowI && col === colI) {
+          return
+        }
+        if(v.isFinish) {
+          return labirint[rowI][colI].isFinish = false
+        }
+      }))
     }
     else if(
       store.selectedKey&&
@@ -74,7 +90,7 @@ export const CellObject: React.FC<CellProps> = observer((props) => {
         cell.keys.push(store.selectedKey);
       }
     }
-    saveLabirint(store.labirint as any);
+    saveLabirint(labirint as any);
   }
 
   return (
@@ -103,7 +119,7 @@ export const CellObject: React.FC<CellProps> = observer((props) => {
           fill="#fff"
           fontStyle="bold"
           fontSize={cellSize * 0.2}
-          key={index}
+          key={col}
           height={cellSize}
           text={cell.keys.slice().sort().join(', ')}
         />
