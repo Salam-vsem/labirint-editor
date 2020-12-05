@@ -22,16 +22,17 @@ import { isString } from 'util';
 import { createRandomLabirint } from '../../helper/create-random-labirint';
 import Alert from 'react-s-alert';
 import KeysList from './KeysList';
+import { colors } from '@src/config/colors';
 
 const Container = styled.div`
   display: flex;
   width: 450px;
-  height: 100vh;
+  max-height: 100vh;
   /* align-self: flex-start; */
   /* margin-left: 80px; */
   justify-content: flex-start;
   align-items: center;
-  background-color: #191919;
+  background-color: ${colors.rightMenuBg};
 `;
 
 const Menu = styled.div`

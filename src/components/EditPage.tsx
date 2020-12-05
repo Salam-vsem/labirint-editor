@@ -1,21 +1,20 @@
 import React, { useEffect } from 'react';
-import { Stage } from 'react-konva';
+import { Layer, Rect, Stage } from 'react-konva';
 import {useLabirintStore } from '../store/Labirint';
 import LabirintLayer from './LabirintLayer';
 import styled from 'styled-components';
 import LabirintDoorsLayer from './LabirintDoorsLayer';
 import EditPanel from './add-Items-components/RightMenu';
 import CellLayer from './CellLayer';
-import { useHistory } from 'react-router';
 import bgImage from  '../images/editpage-bg.jpg';
-import KeysList from './add-Items-components/KeysList';
+import { colors } from '@src/config/colors';
 
 
 const Container = styled.div`
     width: 100vw;
     height: 100vh;
-    background-image: url(${bgImage});
-    background-position:center;
+    /* background-image: url(${bgImage});
+    background-position:center; */
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -37,7 +36,19 @@ export const EditPage: React.FC = () => {
 
   return (
     <Container>
-      <StyledStage width={(cellSize + wallSize + 10) * store.labirint.length} height={(cellSize + wallSize + 10) * store.labirint.length}>
+      <StyledStage
+        width={(cellSize + wallSize + 10) * store.labirint.length}
+        height={(cellSize + wallSize + 10) * store.labirint.length}
+      >
+        <Layer>
+          <Rect
+            x = {40}
+            y = {40}
+            width={(cellSize + wallSize) * store.labirint.length}
+            height={(cellSize + wallSize) * store.labirint.length}
+            fill={colors.cellColor}
+          />
+        </Layer>
         <CellLayer />
         <LabirintLayer wallValue={false} />
         <LabirintDoorsLayer />

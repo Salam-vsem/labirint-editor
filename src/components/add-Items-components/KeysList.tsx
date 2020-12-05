@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { isNumber, isUndefined } from 'util';
 import { Direction } from '../../types';
 import { Kaleidoscope } from 'konva/types/filters/Kaleidoscope';
+import { colors } from '@src/config/colors';
 
 interface ContainerProps {
   top: number;
@@ -16,7 +17,7 @@ const Container = styled.div<ContainerProps>`
   align-items: center;
   min-width: 200px;
   height: 100vh;
-  background-color: #262626;
+  background-color: ${colors.keysListBg};
   display: flex;
   flex-direction: column;
   justify-content: center;

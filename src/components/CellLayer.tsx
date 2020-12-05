@@ -33,7 +33,7 @@ export const CellLayer: React.FC = observer(() => {
                 x={cellIndex * (cellSize + wallSize)}
                 y={rowIndex * (cellSize + wallSize)}
                 row={rowIndex}
-                index={cellIndex}
+                col={cellIndex}
                 bg={switchColor(cell)}
               />
             )))
