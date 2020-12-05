@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": [
+        "src/*"
+      ],
+      "prando": [
+        "src/polyfills/prando"
+      ]
+    }
+  }
+}
