@@ -59,11 +59,12 @@ export const CellObject: React.FC<CellProps> = observer((props) => {
     }
     else if(
       store.selectedKey&&
-      !cell.isStart &&
-      !cell.isFinish &&
-      (isUndefined(cell.keys) || cell.keys.length < 3)
+      // !cell.isStart &&
+      // !cell.isFinish &&
+      (cell.keys === undefined || cell.keys.length < 4)
     ){
       // if(store.selectedKey) {
+      console.log('here')
       if(cell.keys) {
         if(cell.keys.every(key => key !== store.selectedKey)) {
           cell.keys.push(store.selectedKey);

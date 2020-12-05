@@ -1,5 +1,4 @@
 import { Cell, Direction, PassInfo } from "../types";
-import { isNumber, isUndefined } from "util";
 
 interface Position {
   row: number;
@@ -44,7 +43,7 @@ const findCell = (labirint: readonly Cell[][], position: Position): Cell => {
 }
 
 const isAvailableDoor = (directionValue: PassInfo, keys: number[]): boolean => {
-  return isNumber(directionValue) && keys.some(key => key === directionValue)
+  return (typeof directionValue === 'number') && keys.some(key => key === directionValue)
 }
 
 const findAvailableDirections = (cell: Cell, keys: number[], prevDirection?: Direction): Direction[] => {
@@ -62,7 +61,7 @@ const findClosedDoors = (cell: Cell, keys: number[], prevDirection?: Direction):
     .keys(cell.directions)
     .map(key => Number(key) as Direction)
     .filter(direction =>
-      isNumber(cell.directions[direction]) &&
+      (typeof cell.directions[direction] === 'number') &&
       !isAvailableDoor(cell.directions[direction], keys) &&
       (direction !== invertDirection(prevDirection!))
     );
@@ -70,7 +69,7 @@ const findClosedDoors = (cell: Cell, keys: number[], prevDirection?: Direction):
 
 const isEmtyDirection = (cell: Cell, direction: Direction) => {
   return Object.values(cell.directions).some((value, index) => (
-    index === direction && !(isNumber(value) || !value)
+    index === direction && !((typeof value === 'number') || !value)
   ));
 }
 const isTilesStructureCorrect = (labirint: readonly Cell[][]): boolean => {
@@ -172,7 +171,7 @@ export const IsLabirintStructureCorrect = (labirint: readonly Cell[][]): true | 
     const closedDoors = findClosedDoors(cell, keys, prevDirection); 
     closedDoors.map(direction => {
       const key = cell.directions[direction];
-      if(isNumber(key) && !isUndefined(prevDirection)) {
+      if((typeof key === 'number') && (prevDirection !== undefined)) {
         rememberedDoors[key] = [position, prevDirection];
       }
     });
