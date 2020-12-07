@@ -15,9 +15,9 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(${bgImage});
+  /* background-image: url(${bgImage});
   background-repeat:no-repeat;
-  background-position:center;
+  background-position:center; */
 `;
 
 const Menu = styled.div`

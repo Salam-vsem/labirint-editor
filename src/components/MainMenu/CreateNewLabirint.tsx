@@ -1,5 +1,5 @@
 import React from 'react';
-import { MediumContainer } from './MainPage';
+import { MediumContainer, Styledlink } from './MainPage';
 import { Image, HoverPlate, Title, Item } from './Styles';
 import { routes } from '@src/config/routes';
 import emptyLabirint from '../../images/empty-labirint.png';
@@ -16,12 +16,12 @@ const Container = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: space-around;
   align-items: center;
 
-  background-image: url(${bgImage});
-  background-repeat:no-repeat;
-  background-position:center;
+  /* background-image: url(${bgImage}); */
+  /* background-repeat:no-repeat; */
+  /* background-position:center; */
 `;
 
 const PageTitle = styled.div`
@@ -34,17 +34,17 @@ const PageTitle = styled.div`
   vertical-align: middle;
 `;
 
-const Styledlink = styled(Link)`
-  font-size: 16px;
-  margin-top: 10px;
-  text-decoration : none;
-  color: #e631f9;
-  transition: color 0.3s ease;
-  text-transform: uppercase;
-  &:hover {
-    color: #551A8B;
-  }
-`;
+// const Styledlink = styled(Link)`
+//   font-size: 16px;
+//   margin-top: 10px;
+//   text-decoration : none;
+//   color: #e631f9;
+//   transition: color 0.3s ease;
+//   text-transform: uppercase;
+//   &:hover {
+//     color: #551A8B;
+//   }
+// `;
 
 export const CreateNewLabirint: React.FC = () => {
   const history = useHistory();
