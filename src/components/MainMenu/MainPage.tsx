@@ -21,7 +21,7 @@ const Container = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: space-around;
   align-items: center;
 `;
 
@@ -100,9 +100,9 @@ export const MainPage: React.FC = () => {
         localStorage['labirint'] &&
         <Styledlink to={routes.editPage}>back</Styledlink>
       }
-      <BgVideo autoPlay loop>
+      {/* <BgVideo autoPlay loop>
         <source src={bgVideo} type="video/mp4" />
-      </BgVideo>
+      </BgVideo> */}
     </Container>
   )
 } 

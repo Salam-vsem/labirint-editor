@@ -31,13 +31,10 @@ export const CellObject: React.FC<CellProps> = observer((props) => {
   }, [bg]);
 
   const switchColor = (): string => {
-    if(store.selectedItemToChange === SelectedItemToChange.noneSelected && !store.selectedKey) {
-      return colors.cellColor
-    }
-    if(bg === colors.startColor) {
+    if(cell.isStart) {
       return colors.startHoverColor;
     }
-    if(bg === colors.finishColor) {
+    if(cell.isFinish) {
       return colors.finishHoverColor;
     }
     return colors.cellHoverColor;
@@ -71,16 +68,15 @@ export const CellObject: React.FC<CellProps> = observer((props) => {
       }))
     }
     else if(
-      store.selectedKey&&
+      store.selectedKey &&
       !cell.isStart &&
-      !cell.isFinish &&
-      (cell.keys === undefined || cell.keys.length < 4)
+      !cell.isFinish
     ){
       if(cell.keys) {
-        if(cell.keys.every(key => key !== store.selectedKey)) {
+        if(cell.keys.every(key => key !== store.selectedKey) && cell.keys.length < 4) {
           cell.keys.push(store.selectedKey);
         }
-        else {
+        else if(cell.keys.some(key => key === store.selectedKey)){
           const index = cell.keys.indexOf(store.selectedKey);
           cell.keys.splice(index, 1);
         }
