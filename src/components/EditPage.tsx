@@ -4,7 +4,7 @@ import {useLabirintStore } from '../store/Labirint';
 import LabirintLayer from './LabirintLayer';
 import styled from 'styled-components';
 import LabirintDoorsLayer from './LabirintDoorsLayer';
-import EditPanel from './add-Items-components/RightMenu';
+import EditPanel from './labirint-tools/RightMenu';
 import CellLayer from './CellLayer';
 import bgImage from  '../images/editpage-bg.jpg';
 import { colors } from '@src/config/colors';

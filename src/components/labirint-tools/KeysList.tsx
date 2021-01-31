@@ -3,7 +3,7 @@ import { useLabirintStore, saveLabirint, saveKeys } from '../../store/Labirint';
 import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 import { isNumber, isUndefined } from 'util';
-import { Direction } from '../../types';
+import { Direction, SelectedItemToChange } from '../../types';
 import { Kaleidoscope } from 'konva/types/filters/Kaleidoscope';
 import { colors } from '@src/config/colors';
 
@@ -96,7 +96,7 @@ export const KeysList: React.FC = observer(() => {
         store.labirint[rowIndex][colIndex].keys!.splice(keyIndex, 1);
       }
       Object.values(col.directions).map((value, valueIndex: Direction) => {
-        if(isNumber(value) && value === index + 1) {
+        if((typeof value === 'number') && value === index + 1) {
           store.labirint[rowIndex][colIndex].directions[valueIndex] = true;
         }
       });
@@ -107,6 +107,7 @@ export const KeysList: React.FC = observer(() => {
 
   const updateSelectedKey = () => {
     const selectedKey = selectRef.current!.value;
+    store.selectedItemToChange = SelectedItemToChange.noneSelected;
     store.selectedKey = Number(selectedKey);
   }
 
@@ -133,7 +134,7 @@ export const KeysList: React.FC = observer(() => {
             <StyledOption
               key={index}
               value={key}
-              onDoubleClick={() => removeKey()}
+              onDoubleClick={removeKey}
             >
               {'Key ' + key}
             </StyledOption>
