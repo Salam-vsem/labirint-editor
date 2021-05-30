@@ -6,7 +6,8 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${colors.bodyBg};
     color: #e2e2e2;
     font-size: 24px;
-    font-family: 'Ubuntu', sans-serif;
+    /* font-weight: 100; */
+    font-family: sans-serif;
   }
 `;
 

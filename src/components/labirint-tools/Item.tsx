@@ -1,21 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useLabirintStore } from '../../store/Labirint';
-import { observer } from 'mobx-react-lite';
-import { SelectedItemToChange } from '../../types';
+import { MenuOptions } from '../../types';
 
 interface ItemStyledProps {
-  bgColor: string;
   width?: number;
+  selected?: boolean
 }
 
-const ItemStyle = styled.div<ItemStyledProps>`
+const StyledContainer = styled.div<ItemStyledProps>`
   position: relative;
   width: ${props => props.width? props.width + 'px': '80px'};
   height: 80px;
   margin-bottom: 20px;
   /* border-radius: 100%; */
-  background-color: ${props => props.bgColor};
+  background-color: ${props => props.selected? '#4eeae4':'#e631f9'};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,13 +32,6 @@ export const Title = styled.div`
   position: absolute;
   font-size: 16px;
   bottom: -20%;
-  /* width: 100%; */
-  /* height: 100%; */
-  /* border-radius: 100%; */
-  /* text-align: start; */
-  /* right: 50%; */
-  /* top: 0; */
-  /* display: none; */
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: 2;
@@ -75,9 +66,6 @@ const Player = styled.video`
   /* position: absolute; */
   border-radius: 5px 5px 0 0;
   width: 300px;
-  /* height: 90%; */
-  /* top: 0; */
-  /* left: 0; */
 `;
 
 const VideoDescription = styled.div`
@@ -87,12 +75,10 @@ const VideoDescription = styled.div`
   display: flex;
   align-items: center;
   font-size: 14px;
-  /* z-index: 999; */
 `;
 
 const HoverPlate = styled.span`
 	position: absolute;
-  /* border-radius: 100%; */
   top: 0;
   left: 0;
   right: 0;
@@ -120,15 +106,15 @@ interface ItemProps {
   videoDescription?: VideoDescriptionProps
   discrLeftPos?: number;
   onClickFunc?: () => void;
+  menuOption: MenuOptions;
+  updateMenuOption: (option: MenuOptions) => void;
 }
 
-export const Item: React.FC<ItemProps> = observer((props) => {
-  const {value, img, width, onClickFunc, videotitle, videoDescription, discrLeftPos} = props;
-  const store = useLabirintStore();
+export const Item: React.FC<ItemProps> = (props) => {
+  const {value, img, width, onClickFunc, videotitle, videoDescription, discrLeftPos, menuOption, updateMenuOption} = props;
   const bgVideo = `${process.env.PUBLIC_URL}/video/${videotitle}.mp4`;
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const [bg, setBg] = useState('#e631f9');
   const [show, setShow] = useState('none');
   const [timer, setTimer] = useState<number>();
 
@@ -141,11 +127,6 @@ export const Item: React.FC<ItemProps> = observer((props) => {
     setTimer(timer);
   };
 
-  // videoRef.current!.addEventListener('ended', () => {
-  //   console.log('here');
-  //   videoRef.current!.currentTime = 0;
-  //   videoRef.current!.play();
-  // }, false);
 
   const stop = () => {
     setShow('none');
@@ -158,40 +139,23 @@ export const Item: React.FC<ItemProps> = observer((props) => {
     videoRef.current!.play();
   }
 
-  useEffect(() => {
-    updateColor()
-  }, [store.selectedItemToChange]);
-
-  const updateColor = () => {
-    if(value) {
-      if(store.selectedItemToChange === value && bg === '#e631f9') {
-        setBg('#4eeae4');
-      }
-      else {
-        setBg('#e631f9');
-      }
-    }
-  }
-
   const updateSelectedItem = () => {
     if(value) {
-      if(store.selectedItemToChange === value) {
-        store.selectedItemToChange = SelectedItemToChange.noneSelected;
+      if(menuOption === value) {
+        return updateMenuOption(MenuOptions.noneSelected)
       }
-      else {
-        store.selectedItemToChange = value;
-      }
+      return updateMenuOption(value)
     }
   }
 
   return (
     <>
-      <ItemStyle
+      <StyledContainer
         onClick={() => {
           videoDescription && stop();
           onClickFunc ? onClickFunc(): updateSelectedItem();
         }}
-        bgColor={bg}
+        selected={menuOption === value}
         onMouseEnter={videoDescription && start}
         onMouseLeave={videoDescription && stop}
         width={width}
@@ -212,9 +176,9 @@ export const Item: React.FC<ItemProps> = observer((props) => {
         }
         <Image src={img}/>
         <HoverPlate />
-      </ItemStyle>
+      </StyledContainer>
     </>
   );
-});
+};
 
 export default Item;

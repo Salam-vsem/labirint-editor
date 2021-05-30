@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Layer, Rect, Stage } from 'react-konva';
 import {useLabirintStore } from '../store/Labirint';
 import LabirintLayer from './LabirintLayer';
@@ -8,6 +8,7 @@ import EditPanel from './labirint-tools/RightMenu';
 import CellLayer from './CellLayer';
 import bgImage from  '../images/editpage-bg.jpg';
 import { colors } from '@src/config/colors';
+import { observer } from 'mobx-react-lite';
 
 
 const Container = styled.div`
@@ -21,22 +22,22 @@ const Container = styled.div`
     overflow: hidden;
   `;
 
-const StyledStage = styled(Stage)`
-  margin-left: 5vw;
-`;
-
-export const EditPage: React.FC = () => {
+export const EditPage: React.FC = observer(() => {
   const store = useLabirintStore();
   const wallSize = store.wallSize;
   const cellSize = store.cellSize;
+  const ref = useRef<Stage>(null);
 
-  // useEffect(() => {
-  //   store.updateSizes();
-  // }, [])
+  useEffect(() => {
+    window.addEventListener('resize', (ev: UIEvent) => store.updateSizes())
+    return window.removeEventListener('resize', (ev: UIEvent) => store.updateSizes())
+  }, [])
 
   return (
     <Container>
-      <StyledStage
+      <Stage
+        size
+        ref={ref}
         width={(cellSize + wallSize + 10) * store.labirint.length}
         height={(cellSize + wallSize + 10) * store.labirint.length}
       >
@@ -53,10 +54,10 @@ export const EditPage: React.FC = () => {
         <LabirintLayer wallValue={false} />
         <LabirintDoorsLayer />
         <LabirintLayer wallValue={true} />
-      </StyledStage>
+      </Stage>
       <EditPanel />
     </Container>
   );
-}
+});
 
 export default EditPage;
