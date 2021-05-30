@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Rect, Group, Text } from 'react-konva';
-import { Cell, Direction, SelectedItemToChange } from '../types';
+import { Cell, Direction, MenuOptions } from '../types';
 import { useLabirintStore, saveLabirint } from '../store/Labirint';
 import { isNumber, isUndefined } from 'util';
 import { colors } from '../config/colors';

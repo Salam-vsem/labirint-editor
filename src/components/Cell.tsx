@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Rect, Group, Text } from 'react-konva';
-import { SelectedItemToChange } from '@src/types';
+import { MenuOptions } from '@src/types';
 import { useLabirintStore, saveLabirint } from '@src/store/Labirint';
 import { colors } from '@src/config/colors';
 import { observer } from 'mobx-react-lite';
@@ -41,7 +41,7 @@ export const CellObject: React.FC<CellProps> = observer((props) => {
   }
 
   const onClickFunc = () => {
-    if(store.selectedItemToChange === SelectedItemToChange.start ) {
+    if(store.menuOption === MenuOptions.start ) {
       cell.isFinish = false;
       cell.keys = [];
       cell.isStart? cell.isStart = !cell.isStart: cell.isStart = true;
@@ -54,7 +54,7 @@ export const CellObject: React.FC<CellProps> = observer((props) => {
         }
       }))
     }
-    else if(store.selectedItemToChange === SelectedItemToChange.finish) {
+    else if(store.menuOption === MenuOptions.finish) {
       cell.isStart = false;
       cell.keys = [];
       cell.isFinish? cell.isFinish = !cell.isFinish: cell.isFinish = true;

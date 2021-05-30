@@ -71,6 +71,7 @@ const isEmtyDirection = (cell: Cell, direction: Direction) => {
     index === direction && !((typeof value === 'number') || !value)
   ));
 }
+
 const isTilesStructureCorrect = (labirint: readonly Cell[][]): boolean => {
   let result = true;
   for(let row = 0; row < labirint.length - 1; row++) {
@@ -129,7 +130,7 @@ const invertDirection = (direction: Direction) => {
 }
 
 type Step = true | undefined;
-type RememberedDoors = Record<number, [Position, Direction]>;
+type RememberedDoors = Record<number, [Position, Direction | undefined]>;
 
 export const IsLabirintStructureCorrect = (labirint: readonly Cell[][]): true | string => {
   const steps: Step[][] = [];
@@ -170,7 +171,7 @@ export const IsLabirintStructureCorrect = (labirint: readonly Cell[][]): true | 
     const closedDoors = findClosedDoors(cell, keys, prevDirection); 
     closedDoors.map(direction => {
       const key = cell.directions[direction];
-      if((typeof key === 'number') && (prevDirection !== undefined)) {
+      if((typeof key === 'number')) {
         rememberedDoors[key] = [position, prevDirection];
       }
     });

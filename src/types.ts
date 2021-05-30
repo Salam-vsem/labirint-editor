@@ -8,7 +8,7 @@ export enum Direction {
     down,
 }
 
-export enum SelectedItemToChange {
+export enum MenuOptions {
     noneSelected,
     // keys,
     // doors,

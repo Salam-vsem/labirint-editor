@@ -3,7 +3,7 @@ import { useLabirintStore, saveLabirint, saveKeys } from '../../store/Labirint';
 import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 import { isNumber, isUndefined } from 'util';
-import { Direction, SelectedItemToChange } from '../../types';
+import { Direction, MenuOptions } from '../../types';
 import { Kaleidoscope } from 'konva/types/filters/Kaleidoscope';
 import { colors } from '@src/config/colors';
 
@@ -107,7 +107,7 @@ export const KeysList: React.FC = observer(() => {
 
   const updateSelectedKey = () => {
     const selectedKey = selectRef.current!.value;
-    store.selectedItemToChange = SelectedItemToChange.noneSelected;
+    store.menuOption = MenuOptions.noneSelected;
     store.selectedKey = Number(selectedKey);
   }
 
@@ -115,7 +115,7 @@ export const KeysList: React.FC = observer(() => {
     <Container
       // className={(store.selectedItemToChange === 1 || store.selectedItemToChange === 2) ? 'show': ''}
       className="show"
-      top={store.selectedItemToChange * 10}
+      top={store.menuOption * 10}
       onChange={updateSelectedKey}
     >
       <span>Select key</span>

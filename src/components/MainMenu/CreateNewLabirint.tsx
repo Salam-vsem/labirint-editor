@@ -2,12 +2,13 @@ import React from 'react';
 import { MediumContainer, Styledlink } from './MainPage';
 import { Image, HoverPlate, Title, Item } from './Styles';
 import { routes } from '@src/config/routes';
-import emptyLabirint from '../../images/empty-labirint.png';
+import fiveByFiveMap from '../../images/5x5.png';
+import tenByTenMap from '../../images/10x10.png';
+import fifteenByFifteenMap from '../../images/15x15.png';
 import { useHistory } from 'react-router';
 import { useLabirintStore } from '@src/store/Labirint';
 import { createLabirint } from '@src/helper/clearlabirint';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import bgImage from '../../images/create-new-labirint-bg.jpg';
 
 // TODO
@@ -61,17 +62,17 @@ export const CreateNewLabirint: React.FC = () => {
       <PageTitle>Select Labirint size</PageTitle>
       <MediumContainer>
         <Item onClick={() => createNewLabirint(5, 5)}>
-          <Image src={emptyLabirint} />
+          <Image src={fiveByFiveMap} />
           <HoverPlate />
           <Title>5 Х 5</Title>
         </Item>
         <Item onClick={() => createNewLabirint(10, 10)}>
-          <Image src={emptyLabirint} />
+          <Image src={tenByTenMap} />
           <HoverPlate />
           <Title>10 Х 10</Title>
         </Item>
         <Item onClick={() => createNewLabirint(15, 15)}>
-          <Image src={emptyLabirint} />
+          <Image src={fifteenByFifteenMap} />
           <HoverPlate />
           <Title>15 Х 15</Title>
         </Item>

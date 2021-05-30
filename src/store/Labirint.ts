@@ -1,5 +1,5 @@
 import {observable, action} from 'mobx';
-import { Cell, Direction, SelectedItemToChange, Labirint, PassInfo } from '../types';
+import { Cell, Direction, MenuOptions, Labirint, PassInfo } from '../types';
 import { createContext, useContext } from 'react';
 import { isUndefined, isNumber, isObject } from 'util';
 import clearLabirint, { clearDirections, findUneditableDirections} from '../helper/clearlabirint';
@@ -38,7 +38,7 @@ export class LabirintStore {
   private _labirint: Labirint;
 
   @observable
-  selectedItemToChange: SelectedItemToChange;
+  menuOption: MenuOptions;
 
   @observable
   keys: number[];
@@ -67,7 +67,7 @@ export class LabirintStore {
     this._labirint = loadLabirint();
     this.cellSize = this.getCellSize();
     this.wallSize = this.getWallSize();
-    this.selectedItemToChange = SelectedItemToChange.noneSelected;
+    this.menuOption = MenuOptions.noneSelected;
     const keys = loadKeys();
     if(keys) {
       this.keys = keys;
@@ -79,14 +79,13 @@ export class LabirintStore {
 
   @action
   getCellSize() {
-    return document.documentElement.clientWidth > document.documentElement.clientHeight?
-    document.documentElement.clientHeight * 0.8 / (this.labirint.length):
-    document.documentElement.clientWidth * 0.8 / (this.labirint.length);
+    return (window.innerWidth - 450) > window.innerHeight?
+    window.innerHeight * 0.8 / (this.labirint.length):
+    (window.innerWidth - 450) * 0.8 / (this.labirint.length);
   }
 
   getWallSize() {
     return this.cellSize * 0.13;
-
   }
 
   @action
@@ -160,7 +159,7 @@ export class LabirintStore {
       }
     }
     this.keys = [];
-    this.selectedItemToChange = SelectedItemToChange.noneSelected;
+    this.menuOption = MenuOptions.noneSelected;
     saveLabirint(this._labirint);
     saveKeys(this.keys);
   }
